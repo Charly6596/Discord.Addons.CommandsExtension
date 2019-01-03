@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Discord.Commands;
 
-namespace Discord.Net.Addons.CommandsExtension
+namespace Discord.Addons.CommandsExtension
 {
     public static class CommandServiceExtension
     {
