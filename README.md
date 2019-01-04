@@ -103,7 +103,7 @@ After that, you're ready to go!
 
 ## Authors
 
-* **Charly6596** - *CommandService extensions and default embed generation * - [Github profile](https://github.com/Charly6596) - Discord: Charly#7094
+* **Charly6596** - _CommandService extensions and default embed generation _ - [Github profile](https://github.com/Charly6596) - Discord: Charly#7094
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
