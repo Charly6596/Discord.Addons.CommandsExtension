@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Discord.Commands;
@@ -38,15 +38,43 @@ namespace Discord.Addons.CommandsExtension
 
         private static EmbedBuilder GenerateSpecificCommandHelpEmbed(this CommandService commandService, string command, string prefix)
         {
+
+            var isNumeric = int.TryParse(command[command.Length - 1].ToString(), out var pageNum);
+
+            if (isNumeric)
+                command = command.Substring(0, command.Length - 2);
+            else
+                pageNum = 1;
+
             var helpEmbedBuilder = new EmbedBuilder();
             var commandSearchResult = commandService.Search(command);
-            if (!commandSearchResult.IsSuccess)
+
+            
+            var commandModulesList = commandService.Modules.ToList();
+            var commandsInfoWeNeed = new List<CommandInfo>();
+            foreach (var c in commandModulesList) commandsInfoWeNeed.AddRange(c.Commands.Where(h => string.Equals(h.Name, command, StringComparison.CurrentCultureIgnoreCase)));
+
+
+            if(pageNum > commandsInfoWeNeed.Count  || pageNum <=0)
+                pageNum = 1;
+
+
+            if (!commandSearchResult.IsSuccess || commandsInfoWeNeed.Count <= 0)
             {
                 helpEmbedBuilder.WithTitle("Command not found");
                 return helpEmbedBuilder;
             }
-            var commandInformation = commandSearchResult.Commands.FirstOrDefault().Command.GetCommandInfo(prefix);
+
+            var commandInformation = commandsInfoWeNeed[pageNum - 1].GetCommandInfo(prefix);
+
+
+
             helpEmbedBuilder.WithDescription(commandInformation);
+
+            if (commandsInfoWeNeed.Count >= 2)
+                helpEmbedBuilder.WithTitle($"Variant {pageNum}/{commandsInfoWeNeed.Count}.\n" +
+                                "_______\n");
+
             return helpEmbedBuilder;
         }
 
