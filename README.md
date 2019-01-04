@@ -7,11 +7,8 @@ Comes with a extension of the [CommandService](https://discord.foxbot.me/latest/
 
 ## How can I add the package to my project?
 
-You can add this package to your project using the .NET CLI:
-```
-dotnet add package Discord.Addons.CommandsExtension --version 1.0.0
-```
-Alternatively, you can add it to your project using any NuGet package manager. Here's the link to NuGet: https://www.nuget.org/packages/Discord.Addons.CommandsExtension/1.0.0
+This package is uploaded to NuGet:
+- [Discord.Addons.CommandsExtensions](https://www.nuget.org/packages/Discord.Addons.CommandsExtension/)
 
 ## Main features
 - Auto-generated embed to display a help command.
@@ -44,7 +41,7 @@ namespace MyBot.Modules
         [Command("help"), Alias("assist"), Summary("Shows help menu.")]
         public async Task Help([Remainder] string command = null)
         {
-            var botPrefix = ">";
+            var botPrefix = ">"; //replace this with your own prefix.
             var helpEmbed = _commandService.GetDefaultHelpEmbed(command, botPrefix);
             await Context.Channel.SendMessageAsync(embed: helpEmbed);
         }
