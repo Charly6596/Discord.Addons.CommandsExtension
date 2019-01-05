@@ -6,7 +6,7 @@ namespace Discord.Addons.CommandsExtension
 {
     public static class CommandServiceExtension
     {
-        public static CommandServiceInfo GetCommandServiceCalss(this CommandService commandService, string command)
+        public static CommandServiceInfo GetCommandServiceInfo(this CommandService commandService, string command)
         {
     
             var commandInfo = commandService.Search(command).Commands.FirstOrDefault().Command;
