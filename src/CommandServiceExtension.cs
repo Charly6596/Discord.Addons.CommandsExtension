@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Discord.Commands;
@@ -7,6 +6,17 @@ namespace Discord.Addons.CommandsExtension
 {
     public static class CommandServiceExtension
     {
+        public static CommandServiceInfo GetCommandServiceCalss(this CommandService commandService, string command)
+        {
+    
+            var commandInfo = commandService.Search(command).Commands.FirstOrDefault().Command;
+            var module = commandInfo.Module;
+            var aliases = string.Join(", ", commandInfo.Aliases);
+            var parameters = string.Join(", ", commandInfo.GetCommandParameters());
+            return new CommandServiceInfo(commandInfo, module, aliases, parameters);
+        }
+
+
         public static Embed GetDefaultHelpEmbed(this CommandService commandService, string command, string prefix)
         {
             EmbedBuilder helpEmbedBuilder;
