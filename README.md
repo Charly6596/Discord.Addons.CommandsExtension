@@ -107,7 +107,7 @@ After that, you're ready to go!
 
 * **Charly6596** - _CommandService extensions and default embed generation_ - [Github profile](https://github.com/Charly6596) - Discord: Charly#7094
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Charly6596/Discord.Addons.CommandsExtension/graphs/contributors) who participated in this project.
 
 ## License
 
