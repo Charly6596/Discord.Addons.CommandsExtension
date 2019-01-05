@@ -11,7 +11,9 @@ This package is uploaded to NuGet:
 
 ### Prerequisites
 
-This package requires `.NET Core 2.0 =>` or `.NET Framework 4.6.1 =>`.
+First of all, you need a C# discord bot, using the `Discord.Net version >= 2.0`.
+If you don't have one yet, check out some tutorials here to get started with Discord bots!
+- [C# bot tutorials](https://www.youtube.com/channel/UCmfZ6FWTHZjPrPP3dWQ1bHg/playlists)
 
 ### Using the default help embed
 
