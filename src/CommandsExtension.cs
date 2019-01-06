@@ -27,6 +27,11 @@ namespace Discord.Addons.CommandsExtension
             return module.Remarks != null ? $"{module.Remarks} {module.Name}" : module.Name;
         }
 
+        /// <summary>
+        /// Returns a string ready to show in a help command,
+        /// having the command name, module name, summary, usage
+        /// and aliases names, including the prefix
+        /// </summary>
         public static string GetCommandInfo(this CommandInfo command, string prefix)
         {
             var aliases = string.Join(", ", command.Aliases);
@@ -43,7 +48,11 @@ namespace Discord.Addons.CommandsExtension
             return sb.ToString();
         }
 
-
+        /// <summary>
+        /// Returns a collection with formatted command parameters,
+        /// Optional parameter names will be enclosed with <>,
+        /// while mandatory names, with []
+        /// </summary>
         public static IEnumerable<string> GetCommandParameters(this CommandInfo command)
         {
             var parameters = command.Parameters;
