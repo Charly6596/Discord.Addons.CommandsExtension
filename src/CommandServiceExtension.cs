@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Discord.Addons.CommandsExtension.Entities;
 using Discord.Commands;
 
 namespace Discord.Addons.CommandsExtension
