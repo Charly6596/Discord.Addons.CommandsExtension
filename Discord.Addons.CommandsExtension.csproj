@@ -14,11 +14,17 @@ Comes with a extension of the CommandService to build a help command easily!</De
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>Charly6596.pfx</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Discord.Net.Commands" Version="2.0.0" />
   </ItemGroup>
+  <PropertyGroup>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
 
+  <ItemGroup>
+      <None Include="LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
 </Project>
