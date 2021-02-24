@@ -23,7 +23,7 @@ namespace Discord.Addons.CommandsExtension
         {
             EmbedBuilder helpEmbedBuilder;
             var commandModules = commandService.GetModulesWithCommands();
-            var moduleMatch = commandModules.FirstOrDefault(m => m.Name == command);
+            var moduleMatch = commandModules.FirstOrDefault(m => m.Name == command || m.Aliases.Contains(command));
 
             if (string.IsNullOrEmpty(command))
             {
@@ -61,17 +61,23 @@ namespace Discord.Addons.CommandsExtension
             var helpEmbedBuilder = new EmbedBuilder();
             var commandSearchResult = commandService.Search(command);
 
-            
-            var commandModulesList = commandService.Modules.ToList();
             var commandsInfoWeNeed = new List<CommandInfo>();
-            foreach (var c in commandModulesList) commandsInfoWeNeed.AddRange(c.Commands.Where(h => string.Equals(h.Name, command, StringComparison.CurrentCultureIgnoreCase)));
 
+            if (commandSearchResult.IsSuccess)
+            {
+                foreach (var c in commandSearchResult.Commands) commandsInfoWeNeed.Add(c.Command);
+            }
+            else
+            {
+                var commandModulesList = commandService.Modules.ToList();
+                foreach (var c in commandModulesList) commandsInfoWeNeed.AddRange(c.Commands.Where(h => string.Equals(h.Name, command, StringComparison.CurrentCultureIgnoreCase)));
+            }
 
             if(pageNum > commandsInfoWeNeed.Count  || pageNum <=0)
                 pageNum = 1;
 
 
-            if (!commandSearchResult.IsSuccess || commandsInfoWeNeed.Count <= 0)
+            if (commandsInfoWeNeed.Count <= 0)
             {
                 helpEmbedBuilder.WithTitle("Command not found");
                 return helpEmbedBuilder;
