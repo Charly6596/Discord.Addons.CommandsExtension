@@ -10,7 +10,7 @@ namespace Discord.Addons.CommandsExtension
     {
         public static CommandServiceInfo GetCommandServiceInfo(this CommandService commandService, string command)
         {
-    
+
             var commandInfo = commandService.Search(command).Commands.FirstOrDefault().Command;
             var module = commandInfo.Module;
             var aliases = string.Join(", ", commandInfo.Aliases);
@@ -51,6 +51,7 @@ namespace Discord.Addons.CommandsExtension
         private static EmbedBuilder GenerateSpecificCommandHelpEmbed(this CommandService commandService, string command, string prefix)
         {
 
+            //TODO: This won't allow commands that ends with a number
             var isNumeric = int.TryParse(command[command.Length - 1].ToString(), out var pageNum);
 
             if (isNumeric)
@@ -73,7 +74,7 @@ namespace Discord.Addons.CommandsExtension
                 foreach (var c in commandModulesList) commandsInfoWeNeed.AddRange(c.Commands.Where(h => string.Equals(h.Name, command, StringComparison.CurrentCultureIgnoreCase)));
             }
 
-            if(pageNum > commandsInfoWeNeed.Count  || pageNum <=0)
+            if (pageNum > commandsInfoWeNeed.Count || pageNum <= 0)
                 pageNum = 1;
 
 

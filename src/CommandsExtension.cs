@@ -10,7 +10,7 @@ namespace Discord.Addons.CommandsExtension
     {
         public static string GetModuleInfo(this ModuleInfo module)
         {
-            var moduleCommands = string.Join(", ", module.Commands.Select(c => c.GetCommandNameWithGroup()));
+            var moduleCommands = string.Join(", ", module.Commands.Select(c => c.MainName()));
             var sb = new StringBuilder()
                 .AppendLine(moduleCommands);
             return sb.ToString();
@@ -37,7 +37,7 @@ namespace Discord.Addons.CommandsExtension
             var aliases = string.Join(", ", command.Aliases);
             var module = command.Module.Name;
             var parameters = string.Join(", ", command.GetCommandParameters());
-            var name = command.GetCommandNameWithGroup();
+            var name = command.MainName();
             var summary = command.Summary;
             var sb = new StringBuilder()
                 .AppendLine($"**Command name**: {name}")
@@ -59,7 +59,7 @@ namespace Discord.Addons.CommandsExtension
             var optionalTemplate = "<{0}>";
             var mandatoryTemplate = "[{0}]";
             List<string> parametersFormated = new List<string>();
-            
+
             foreach (var parameter in parameters)
             {
                 if (parameter.IsOptional)
@@ -74,10 +74,20 @@ namespace Discord.Addons.CommandsExtension
         /// <summary>
         /// Returns the command name with the group name attached.
         /// If there is no group, will return the command name.
+        /// Warning: if there is a NameAttribute in the command, its will be returned instead of the command name,
+        /// it's not warranteed to be an executable name
         /// </summary>
+        [Obsolete("Deprecated. Use MainName instead.")]
         public static string GetCommandNameWithGroup(this CommandInfo commandInfo)
         {
             return commandInfo.Module.Group != null ? $"{commandInfo.Module.Group} {commandInfo.Name}" : commandInfo.Name;
         }
+
+        /// <summary>
+        /// Returns the main command name used to execute this command.
+        /// If the command is in a module with a GroupAttribute, the group name will be included in the command name.
+        /// If there is an AliasAttribute defined before the CommandAttribute, the first alias will be used
+        /// </summary>
+        public static string MainName(this CommandInfo commandInfo) => commandInfo.Aliases.First();
     }
 }
