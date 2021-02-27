@@ -10,7 +10,7 @@ namespace Discord.Addons.CommandsExtension
     {
         public static CommandServiceInfo GetCommandServiceInfo(this CommandService commandService, string command)
         {
-    
+
             var commandInfo = commandService.Search(command).Commands.FirstOrDefault().Command;
             var module = commandInfo.Module;
             var aliases = string.Join(", ", commandInfo.Aliases);
@@ -23,7 +23,7 @@ namespace Discord.Addons.CommandsExtension
         {
             EmbedBuilder helpEmbedBuilder;
             var commandModules = commandService.GetModulesWithCommands();
-            var moduleMatch = commandModules.FirstOrDefault(m => m.Name == command);
+            var moduleMatch = commandModules.FirstOrDefault(m => m.Name == command || m.Aliases.Contains(command));
 
             if (string.IsNullOrEmpty(command))
             {
@@ -51,6 +51,7 @@ namespace Discord.Addons.CommandsExtension
         private static EmbedBuilder GenerateSpecificCommandHelpEmbed(this CommandService commandService, string command, string prefix)
         {
 
+            //TODO: This won't allow commands that ends with a number
             var isNumeric = int.TryParse(command[command.Length - 1].ToString(), out var pageNum);
 
             if (isNumeric)
@@ -61,17 +62,23 @@ namespace Discord.Addons.CommandsExtension
             var helpEmbedBuilder = new EmbedBuilder();
             var commandSearchResult = commandService.Search(command);
 
-            
-            var commandModulesList = commandService.Modules.ToList();
             var commandsInfoWeNeed = new List<CommandInfo>();
-            foreach (var c in commandModulesList) commandsInfoWeNeed.AddRange(c.Commands.Where(h => string.Equals(h.Name, command, StringComparison.CurrentCultureIgnoreCase)));
 
+            if (commandSearchResult.IsSuccess)
+            {
+                foreach (var c in commandSearchResult.Commands) commandsInfoWeNeed.Add(c.Command);
+            }
+            else
+            {
+                var commandModulesList = commandService.Modules.ToList();
+                foreach (var c in commandModulesList) commandsInfoWeNeed.AddRange(c.Commands.Where(h => string.Equals(h.Name, command, StringComparison.CurrentCultureIgnoreCase)));
+            }
 
-            if(pageNum > commandsInfoWeNeed.Count  || pageNum <=0)
+            if (pageNum > commandsInfoWeNeed.Count || pageNum <= 0)
                 pageNum = 1;
 
 
-            if (!commandSearchResult.IsSuccess || commandsInfoWeNeed.Count <= 0)
+            if (commandsInfoWeNeed.Count <= 0)
             {
                 helpEmbedBuilder.WithTitle("Command not found");
                 return helpEmbedBuilder;
