@@ -3,6 +3,9 @@
 An extension of Discord.Net.Commands, mainly to get information about your commands as string, ideally to build a help command. 
 Comes with a extension of the [CommandService](https://discord.foxbot.me/latest/api/Discord.Commands.CommandService.html) to build a help command easily!
 
+## Known issues
+- [Command not found when command/alias ends with a number #7](https://github.com/Charly6596/Discord.Addons.CommandsExtension/issues/7).
+
 ## Getting Started
 
 This package is uploaded to NuGet:
@@ -105,9 +108,9 @@ After that, you're ready to go!
 
 ## Authors
 
-* **Charly6596** - _CommandService extensions and default embed generation_ - [Github profile](https://github.com/Charly6596) - Discord: Charly#7094
+* **Charly6596** - _CommandService extensions and default embed generation_ - [Github profile](https://github.com/Charly6596) - Discord: Charly#1288
 
-See also the list of [contributors](https://github.com/Charly6596/Discord.Addons.CommandsExtension/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Charly6596/Discord.Addons.CommandsExtension/graphs/contributors) who participated in this project and the authors of the [issues](https://github.com/Charly6596/Discord.Addons.CommandsExtension/issues) who contributed reporting bugs and suggesting improvements.
 
 ## License
 
