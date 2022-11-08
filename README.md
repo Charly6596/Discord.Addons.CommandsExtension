@@ -68,7 +68,7 @@ namespace DiscordTutorialBot
 }
 ```
 
-The next step, is use that variable to reference your commnad service, you can do that right where you initialize the `CommandService`, in the `CommandHandler` class, in the `InitializeAsync` method:
+The next step, is use that variable to reference your command service, you can do that right where you initialize the `CommandService`, in the `CommandHandler` class, in the `InitializeAsync` method:
 ```cs
 public async Task InitializeAsync(DiscordSocketClient client)
 {
